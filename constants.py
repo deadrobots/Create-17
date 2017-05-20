@@ -1,13 +1,13 @@
-portArm=3
-portClaw=0
+# Tophats
+RIGHT_TOPHAT = 0
+LEFT_TOPHAT = 1
 
-clawWide=0
-clawOpen=546
-clawClose=1000
-armHigh=500
-armUp=600
-armBlock=650
-armGrab=1300
-armDown=2047
+THREASHOLD = 1000
 
-#  this is a test
+# Drive Info
+TURN_TIME = 0  # 0, 15, 40
+
+
+# Misc
+ALLOW_BUTTON_WAIT = False
+START_TIME = 0

@@ -2,32 +2,19 @@
 import os, sys
 import actions as act
 
+
 def main():
+
+    print("Hello!")
+
     act.init()
 
-    act.waitForButton()
-    act.grabHay()
-    act.goToBackWall()
-    act.turnToHay()
-    act.grabFirstHayBale()
+    act.get_out_of_startbox()
+    act.go_to_far_side()
+    act.go_and_dump()
+    act.go_and_dump_blue()
 
     act.shutdown()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":

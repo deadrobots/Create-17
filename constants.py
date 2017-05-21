@@ -1,13 +1,33 @@
+from wallaby import digital
+
+# Misc
+ALLOW_BUTTON_WAIT = False
+START_TIME = 0
+CLONE_SWITCH = 9
+IS_CLONE = digital(CLONE_SWITCH)
+IS_PRIME = not IS_CLONE
+
 # Tophats
 RIGHT_TOPHAT = 0
 LEFT_TOPHAT = 1
 
 THREASHOLD = 1000
 
+
+# Servos
+SERVO_ARM = 1
+SERVO_CLAW = 0
+
+
+# Servo Values
+ARM_UP = 2047
+ARM_DOWN = 380
+ARM_DROP = 590
+
+CLAW_OPEN = 0
+CLAW_CLOSE = 2047
+
 # Drive Info
-TURN_TIME = 0  # 0, 15, 40
-
-
-# Misc
-ALLOW_BUTTON_WAIT = False
-START_TIME = 0
+TURN_TIME = 0  #-20  # 0, 15, 40
+if IS_CLONE:
+    TURN_TIME = 15

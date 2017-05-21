@@ -27,9 +27,13 @@ def rotate(power, time):
 
 
 def split_drive(left, right, time, increments, turnTime):
+    power = -100
+    if turnTime < 0:
+        turnTime = abs(turnTime)
+        power = abs(power)
     for _ in range(0, increments):
         drive_timed(left, right, int(time / increments))
-        rotate(-100, turnTime)
+        rotate(power, turnTime)
 
 
 def split_drive_condition(left, right, min, time, turnTime, condition):

@@ -11,7 +11,7 @@ def main():
 
     act.get_out_of_startbox()
     act.go_to_far_side()
-    act.go_and_dump()
+    act.go_and_drop_poms()
     act.go_and_dump_blue()
 
     act.shutdown()

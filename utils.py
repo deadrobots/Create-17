@@ -9,12 +9,11 @@ This module provides some of our standard methods.
 
 import constants as c
 
-from wallaby import ao, msleep, digital, seconds, set_servo_position, get_servo_position, right_button, \
-    create_drive_direct, create_disconnect, get_create_lbump, get_create_rbump, analog
+from wallaby import *
 
 
-def wait_for_button():
-    if c.ALLOW_BUTTON_WAIT:
+def wait_for_button(force=False):
+    if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."
         while not right_button():
             pass
@@ -53,7 +52,7 @@ DELAY = 10
 # Servo Control #
 
 
-def move_servo(servo, endPos, speed):  # Moves a servo with increment "speed".
+def move_servo(servo, endPos, speed=10):  # Moves a servo with increment "speed".
     # speed of 1 is slow
     # speed of 2000 is fast
     # speed of 10 is the default
@@ -107,3 +106,7 @@ def on_black_right():
 
 def bumped():
     return get_create_lbump() or get_create_rbump()
+
+
+def dropped():
+    return get_create_lwdrop() or get_create_rwdrop()

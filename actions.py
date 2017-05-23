@@ -46,7 +46,7 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1575)
     else:
-        rotate(-100, 1625)
+        rotate(-400, 475)
 
     wait_for_button()
 
@@ -76,7 +76,7 @@ def go_and_drop_poms():
     wait_for_button()
 
     drive_timed(100, 100, 750)
-    msleep(1000)
+    # msleep(1000)
 
     while not approach_furrow():
         drive_timed(-100, -100, 1000)
@@ -141,10 +141,10 @@ def go_and_dump_blue():
         drive_timed(100, 100, 200)
         rotate(-100, 1650)
     else:
-        drive_timed(50, 50, 300)
+        drive_timed(500, 500, 30)
         rotate(-100, 1700)
-    drive_timed(150, 150, 3600)
-    drive_timed(-80, -120, 2900)
+    drive_timed(300, 300, 1600)
+    drive_timed(-320, -360, 1000)
 
     wait_for_button()
 
@@ -155,7 +155,7 @@ def go_and_dump_blue():
 
     wait_for_button()
     drive_timed(-100, -100, 2000)
-    msleep(3000)
+    # msleep(3000)
     drive_timed(-200, -200, 1970)
     drive_forever(-200, -200)
     while not bumped():

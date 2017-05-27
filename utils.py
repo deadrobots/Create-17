@@ -12,6 +12,7 @@ import constants as c
 from wallaby import *
 
 
+
 def wait_for_button(force=False):
     if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."
@@ -104,9 +105,31 @@ def on_black_right():
     return analog(c.RIGHT_TOPHAT) > c.THREASHOLD
 
 
+def on_black():
+    return on_black_left() or on_black_right()
+
+
 def bumped():
     return get_create_lbump() or get_create_rbump()
 
 
+def left_bumped():
+    return get_create_lbump
+
+
+def right_bumped():
+    return get_create_rbump
+
+
 def dropped():
     return get_create_lwdrop() or get_create_rwdrop()
+
+
+def y():
+    motor_power(c.Y_ARM, 100)
+    msleep(1000)
+
+
+def y_not():
+    motor_power(c.Y_ARM, -50)
+    msleep(1000)

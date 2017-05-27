@@ -36,11 +36,11 @@ def split_drive(left, right, time, increments, turnTime):
         rotate(power, turnTime)
 
 
-def split_drive_condition(left, right, min, time, turnTime, condition):
+def split_drive_condition(left, right, min, time, turnTime, condition, state=True):
     start = seconds() + time
     create_drive_direct(-left, -right)
     msleep(min)
-    while condition() is True:
+    while condition() is state:
         current = seconds()
         if current > start:
             start = current + time
@@ -48,6 +48,13 @@ def split_drive_condition(left, right, min, time, turnTime, condition):
             create_drive_direct(left, right)
             msleep(min)
     create_drive_direct(0, 0)
+
+
+def drive_conditional(left, right, testFunction, state=True):
+    create_drive_direct(-right, -left)
+    while testFunction() is state:
+        pass
+    stop()
 
 
 def drive_forever(left, right):

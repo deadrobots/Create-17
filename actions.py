@@ -1,25 +1,30 @@
 from movement import *
 from utils import *
 import constants as c
+from wallaby import *
 
 
 def init():
     set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
     set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
-    if c.IS_CLONE:
-        print "I AM CLONE"
-    elif c.IS_PRIME:
-        print "I AM PRIME"
-    else:
-        print "I DON'T KNOW WHAT I AM"
-    c.START_TIME = seconds()
+
     enable_servos()
     create_disconnect()
     if not create_connect_once():
         print "Create not connected..."
         exit(0)
     create_full()
-
+    if c.IS_CLONE:
+        print "I AM CLONE"
+    elif c.IS_PRIME:
+        print "I AM PRIME"
+    else:
+        print "I DON'T KNOW WHAT I AM"
+    # startup_test()
+    wait_for_button(True)
+    move_servo(c.SERVO_ARM, c.ARM_UP)
+    wait_for_button(True)
+    c.START_TIME = seconds()
 
 def shutdown():
     create_safe()
@@ -28,13 +33,37 @@ def shutdown():
     EXIT()
 
 
+def startup_test():
+    print "Bump right"
+    while right_bumped() is False:
+        pass
+    print "Right Bumped"
+    print "Bump left"
+    while left_bumped() is False:
+        pass
+    print "Left Bumped"
+    drive_conditional(100, 100, on_black, False)
+    move_servo(c.SERVO_ARM, c.ARM_UP)
+    move_servo(c.SERVO_CLAW, c.CLAW_OPEN)
+    msleep(500)
+    move_servo(c.SERVO_CLAW, c.CLAW_CLOSE)
+    move_servo(c.SERVO_ARM, c.ARM_DOWN)
+    y()
+    y_not()
+
+
+def test():
+    create_disconnect()
+    if not create_connect_once():
+        print "Create not connected..."
+        exit(0)
+    create_drive_direct(-500, -500)
+    msleep(5000)
 ###################################################
 
 
 def get_out_of_startbox():
-
-    wait_for_button(True)
-
+    move_servo(c.SERVO_ARM, c.ARM_DOWN)
     drive_forever(200, 200)
     while not on_black_left():
         pass
@@ -46,7 +75,7 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1575)
     else:
-        rotate(-400, 475)
+        rotate(-400, 445)
 
     wait_for_button()
 
@@ -82,16 +111,17 @@ def go_and_drop_poms():
         drive_timed(-100, -100, 1000)
     stop()
 
-    set_servo_position(c.SERVO_ARM, c.ARM_DROP)
+    move_servo(c.SERVO_ARM, c.ARM_DROP, 40)
     msleep(500)
-    set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
+    move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 250)
     msleep(500)
-    set_servo_position(c.SERVO_ARM, c.ARM_UP)
-    set_servo_position(c.SERVO_CLAW, c.CLAW_CLOSE)
+    move_servo(c.SERVO_ARM, c.ARM_UP, 35)
+    msleep(100)
+    move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 250)
     msleep(300)
-    set_servo_position(c.SERVO_ARM, c.ARM_DROP)
+    move_servo(c.SERVO_ARM, c.ARM_DROP, 35)
     msleep(300)
-    set_servo_position(c.SERVO_ARM, c.ARM_UP)
+    move_servo(c.SERVO_ARM, c.ARM_UP, 35)
 
 
 def approach_furrow():
@@ -142,21 +172,14 @@ def go_and_dump_blue():
         rotate(-100, 1650)
     else:
         drive_timed(500, 500, 30)
-        rotate(-100, 1700)
+        rotate(-100, 1600)
     drive_timed(300, 300, 1600)
-    drive_timed(-320, -360, 1000)
-
-    wait_for_button()
-
-    if c.IS_PRIME:
-        rotate(-100, 470)
-    else:
-        rotate(-100, 470)
-
-    wait_for_button()
+    drive_timed(-320, -360, 450)
+    rotate(-100, 490)
     drive_timed(-100, -100, 2000)
-    # msleep(3000)
-    drive_timed(-200, -200, 1970)
+    drive_timed(-200, -200, 1190)
+    wait_for_button(True)
+    y()
     drive_forever(-200, -200)
     while not bumped():
         pass

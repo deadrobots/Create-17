@@ -177,14 +177,17 @@ def go_and_dump_blue():
         rotate(-100, 1650)
     else:
         drive_timed(500, 500, 30)
-        rotate(-100, 1600)
+        rotate(-90, 1600)
+    DEBUG_with_wait()
     drive_timed(300, 300, 1600)
     drive_timed(-320, -360, 450)
-    rotate(-100, 490)
+    rotate(-85, 490)
     drive_timed(-100, -100, 2000)
     drive_timed(-200, -200, 1190)
     wait_for_button(True)
     y()
+    drive_timed(250, 250, 300)
+    wait_for_button(True)
     drive_forever(-200, -200)
     while not bumped():
         pass

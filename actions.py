@@ -5,6 +5,7 @@ from wallaby import *
 
 
 def init():
+    # startup_test()
     set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
     set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
 
@@ -23,6 +24,7 @@ def init():
     # startup_test()
     wait_for_button(True)
     move_servo(c.SERVO_ARM, c.ARM_UP)
+    infinite_y()
     wait_for_button(True)
     c.START_TIME = seconds()
 
@@ -34,6 +36,9 @@ def shutdown():
 
 
 def startup_test():
+    if on_black():
+        print "Start the robot on white!"
+        exit(0)
     print "Bump right"
     while right_bumped() is False:
         pass

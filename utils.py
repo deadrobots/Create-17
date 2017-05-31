@@ -133,3 +133,8 @@ def y():
 def y_not():
     motor_power(c.Y_ARM, -50)
     msleep(1000)
+
+
+
+def infinite_y():
+    motor_power(c.Y_ARM, -10)

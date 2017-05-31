@@ -4,7 +4,7 @@ from wallaby import digital
 ALLOW_BUTTON_WAIT = False
 START_TIME = 0
 CLONE_SWITCH = 9
-IS_CLONE = not digital(CLONE_SWITCH)
+IS_CLONE = digital(CLONE_SWITCH)
 IS_PRIME = not IS_CLONE
 
 # Tophats

@@ -70,8 +70,16 @@ def test():
 def get_out_of_startbox():
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
     drive_forever(200, 200)
-    while not on_black_left():
+    while not on_black_right() and not on_black_left():
         pass
+    if on_black_left():
+        drive_forever(0, -200)
+        while not on_black_right():
+            pass
+    elif on_black_right():
+        drive_forever(-200, 0)
+        while not on_black_left():
+            pass
     stop()
     move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
     msleep(100)
@@ -80,9 +88,8 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1575)
     else:
-        rotate(-400, 445)
-
-    wait_for_button()
+        rotate(-400, 525)
+    wait_for_button(True)
 
 
 def go_to_far_side():
@@ -174,19 +181,17 @@ def go_and_dump_blue():
         pass
     if c.IS_PRIME:
         drive_timed(100, 100, 200)
-        rotate(-100, 1650)
+        rotate(-90, 1650)
     else:
         drive_timed(500, 500, 30)
         rotate(-90, 1600)
-    DEBUG_with_wait()
-    drive_timed(300, 300, 1600)
+    drive_timed(300, 300, 1700)
     drive_timed(-320, -360, 450)
-    rotate(-85, 490)
+    rotate(-90, 490)
     drive_timed(-100, -100, 2000)
     drive_timed(-200, -200, 1190)
-    wait_for_button(True)
     y()
-    drive_timed(250, 250, 300)
+    drive_timed(-250, -250, 300)
     wait_for_button(True)
     drive_forever(-200, -200)
     while not bumped():

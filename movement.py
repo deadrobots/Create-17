@@ -43,6 +43,7 @@ def split_drive_condition(left, right, min, time, turnTime, condition, state=Tru
     while condition() is state:
         current = seconds()
         if current > start:
+            print turnTime
             start = current + time
             rotate(-100, turnTime)
             create_drive_direct(left, right)

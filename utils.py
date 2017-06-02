@@ -122,7 +122,13 @@ def right_bumped():
 
 
 def dropped():
-    return get_create_lwdrop() or get_create_rwdrop()
+    ldrop = get_create_lwdrop()
+    rdrop = get_create_rwdrop()
+
+    if rdrop or ldrop:
+        print("DROPPED")
+
+    return ldrop or rdrop
 
 
 def y():

@@ -186,6 +186,7 @@ def go_and_dump_blue():
         drive_timed(500, 500, 30)
         rotate(-90, 1600)
     drive_timed(300, 300, 1700)
+    wait_for_button(True)
     drive_timed(-320, -360, 450)
     rotate(-90, 490)
     drive_timed(-100, -100, 2000)

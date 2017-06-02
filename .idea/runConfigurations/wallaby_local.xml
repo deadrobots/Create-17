@@ -15,7 +15,7 @@
     <option name="PARAMETERS" value="" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <method>
-      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_wallaby-210" />
+      <option name="ToolBeforeRunTask" enabled="true" actionId="Tool_External Tools_wallaby-209" />
     </method>
   </configuration>
 </component>

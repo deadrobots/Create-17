@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import os, sys
 import actions as act
+import constants as c
 
 
 def main():
@@ -12,7 +13,8 @@ def main():
     act.go_to_far_side()
     act.go_and_drop_poms()
     act.go_and_dump_blue()
-
+    if c.seeding:
+        act.hay_grab()
     act.shutdown()
     # act.test()
 if __name__ == "__main__":

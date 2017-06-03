@@ -18,13 +18,23 @@ def init():
         print "I DON'T KNOW WHAT I AM"
     set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
     set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
+    set_servo_position(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
     enable_servos()
     msleep(500)
     startup_test()
     wait_for_button(True)
     move_servo(c.SERVO_ARM, c.ARM_UP)
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
     infinite_y()
-    wait_for_button(True)
+    print"Press the left button to run seeding code and right to run head to head code"
+    while not left_button() or right_button():
+        pass
+    if left_button():
+        c.seeding = True
+        print "seeding"
+    elif right_button():
+        c.seeding = False
+        print "head to head"
     c.START_TIME = seconds()
 
 def shutdown():
@@ -76,6 +86,7 @@ def test():
 
 
 def get_out_of_startbox():
+    # move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
     drive_forever(200, 200)
     while not on_black_right() and not on_black_left():
@@ -94,7 +105,7 @@ def get_out_of_startbox():
     move_servo(c.SERVO_ARM, c.ARM_UP, 100)
     drive_timed(200, 200, 650)
     if c.IS_PRIME:
-        rotate(-100, 1575)
+        rotate(-100, 1500)
     else:
         rotate(-100, 1615)
     wait_for_button()
@@ -137,11 +148,11 @@ def go_and_drop_poms():
     msleep(500)
     move_servo(c.SERVO_ARM, c.ARM_UP, 35)
     msleep(100)
-    move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 250)
-    msleep(300)
-    move_servo(c.SERVO_ARM, c.ARM_DROP, 35)
-    msleep(300)
-    move_servo(c.SERVO_ARM, c.ARM_UP, 35)
+    # move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 250)
+    # msleep(300)
+    # move_servo(c.SERVO_ARM, c.ARM_DROP, 35)
+    # msleep(300)
+    # move_servo(c.SERVO_ARM, c.ARM_UP, 35)
 
 
 def approach_furrow():
@@ -210,4 +221,21 @@ def go_and_dump_blue():
     drive_forever(-200, -200)
     while not bumped():
         pass
+    stop()
+
+
+def hay_grab():
+    drive_timed(200, 200, 1500)
+    y_not()
+    drive_forever(100, 100)
+    while not on_black_right() and not on_black_left():
+        pass
+    if on_black_left():
+        drive_forever(0, 200)
+        while not on_black_right():
+            pass
+    elif on_black_right():
+        drive_forever(200, 0)
+        while not on_black_left():
+            pass
     stop()

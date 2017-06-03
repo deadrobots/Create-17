@@ -12,7 +12,6 @@ import constants as c
 from wallaby import *
 
 
-
 def wait_for_button(force=False):
     if c.ALLOW_BUTTON_WAIT or force:
         print "Press Button..."

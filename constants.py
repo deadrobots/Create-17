@@ -4,7 +4,7 @@ from wallaby import digital
 ALLOW_BUTTON_WAIT = False
 START_TIME = 0
 CLONE_SWITCH = 9
-IS_CLONE = not digital(CLONE_SWITCH)
+IS_CLONE = digital(CLONE_SWITCH)
 IS_PRIME = not IS_CLONE
 
 # Tophats
@@ -17,19 +17,22 @@ THREASHOLD = 1000
 # Servos
 SERVO_ARM = 1
 SERVO_CLAW = 0
+SERVO_HAY_SPIN = 2
+SERVO_HAY_ARM = 3
 
 
 # Motors
 Y_ARM = 0
+HAY_MOTOR = 1
 
 
 # Servo Values
 
 if IS_PRIME:
-    ARM_OFFSET = 0
+    ARM_OFFSET = 400
     CLAW_OFFSET = 0
 else:
-    ARM_OFFSET = 400
+    ARM_OFFSET = 0
     CLAW_OFFSET = 0
 
 
@@ -40,7 +43,17 @@ ARM_DROP = 690 + ARM_OFFSET
 CLAW_OPEN = 0 + CLAW_OFFSET
 CLAW_CLOSE = 2047 + CLAW_OFFSET
 
+HAY_ARM_FLAT = 1776
+HAY_ARM_UP = 500
+HAY_ARM_GATHER = 1900
+
+HAY_SPIN_DRIVE = 1000
+HAY_SPIN_DELIVER = 2047
+
 # Drive Info
 TURN_TIME = 0  #-20  # 0, 15, 40
 if IS_CLONE:
     TURN_TIME = 40
+
+
+seeding = False

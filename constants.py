@@ -43,4 +43,4 @@ CLAW_CLOSE = 2047 + CLAW_OFFSET
 # Drive Info
 TURN_TIME = 0  #-20  # 0, 15, 40
 if IS_CLONE:
-    TURN_TIME = 15
+    TURN_TIME = 40

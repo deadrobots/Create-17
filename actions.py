@@ -5,11 +5,6 @@ from wallaby import *
 
 
 def init():
-    # startup_test()
-    set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
-    set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
-
-    enable_servos()
     create_disconnect()
     if not create_connect_once():
         print "Create not connected..."
@@ -21,7 +16,11 @@ def init():
         print "I AM PRIME"
     else:
         print "I DON'T KNOW WHAT I AM"
-    # startup_test()
+    set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
+    set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
+    enable_servos()
+    msleep(500)
+    startup_test()
     wait_for_button(True)
     move_servo(c.SERVO_ARM, c.ARM_UP)
     infinite_y()
@@ -40,18 +39,27 @@ def startup_test():
         print "Start the robot on white!"
         exit(0)
     print "Bump right"
-    while right_bumped() is False:
+    while right_bumped():
+        pass
+    while not right_bumped():
+        pass
+    while right_bumped():
         pass
     print "Right Bumped"
     print "Bump left"
-    while left_bumped() is False:
+    while left_bumped():
+        pass
+    while not left_bumped():
+        pass
+    while left_bumped():
         pass
     print "Left Bumped"
     drive_conditional(100, 100, on_black, False)
     move_servo(c.SERVO_ARM, c.ARM_UP)
-    move_servo(c.SERVO_CLAW, c.CLAW_OPEN)
+    move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     msleep(500)
-    move_servo(c.SERVO_CLAW, c.CLAW_CLOSE)
+    move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
+    move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
     y()
     y_not()
@@ -73,11 +81,11 @@ def get_out_of_startbox():
     while not on_black_right() and not on_black_left():
         pass
     if on_black_left():
-        drive_forever(0, -200)
+        drive_forever(0, 200)
         while not on_black_right():
             pass
     elif on_black_right():
-        drive_forever(-200, 0)
+        drive_forever(200, 0)
         while not on_black_left():
             pass
     stop()
@@ -88,8 +96,8 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1575)
     else:
-        rotate(-400, 525)
-    wait_for_button(True)
+        rotate(-100, 1615)
+    wait_for_button()
 
 
 def go_to_far_side():
@@ -184,16 +192,21 @@ def go_and_dump_blue():
         rotate(-90, 1650)
     else:
         drive_timed(500, 500, 30)
-        rotate(-90, 1600)
+        rotate(-90, 1700)
     drive_timed(300, 300, 1700)
-    wait_for_button(True)
-    drive_timed(-320, -360, 450)
-    rotate(-90, 490)
-    drive_timed(-100, -100, 2000)
-    drive_timed(-200, -200, 1190)
+
+
+    if c.IS_PRIME:
+        drive_timed(-320, -360, 300)
+        rotate(-90, 600)
+    else:
+        drive_timed(-320, -360, 450)
+        rotate(-90, 460)
+    move_servo(c.SERVO_ARM, c.ARM_DROP)
+    drive_timed(-200, -200, 2500)
     y()
     drive_timed(-250, -250, 300)
-    wait_for_button(True)
+    wait_for_button()
     drive_forever(-200, -200)
     while not bumped():
         pass

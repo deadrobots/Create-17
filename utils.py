@@ -114,11 +114,11 @@ def bumped():
 
 
 def left_bumped():
-    return get_create_lbump
+    return get_create_lbump()
 
 
 def right_bumped():
-    return get_create_rbump
+    return get_create_rbump()
 
 
 def dropped():

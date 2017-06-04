@@ -200,21 +200,20 @@ def go_and_dump_blue():
         pass
     if c.IS_PRIME:
         drive_timed(100, 100, 200)
-        rotate(-90, 1650)
+        rotate(-90, 1800)
     else:
         drive_timed(500, 500, 30)
         rotate(-90, 1700)
     drive_timed(300, 300, 1700)
 
-
     if c.IS_PRIME:
         drive_timed(-320, -360, 300)
-        rotate(-90, 600)
+        rotate(-90, 650)
     else:
         drive_timed(-320, -360, 450)
         rotate(-90, 460)
+    drive_timed(-200, -200, 2750)#was 2500
     move_servo(c.SERVO_ARM, c.ARM_DROP)
-    drive_timed(-200, -200, 2500)
     y()
     drive_timed(-250, -250, 300)
     wait_for_button()
@@ -222,6 +221,7 @@ def go_and_dump_blue():
     while not bumped():
         pass
     stop()
+
 
 
 def hay_grab():
@@ -239,3 +239,19 @@ def hay_grab():
         while not on_black_left():
             pass
     stop()
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_STORE)
+    drive_timed(250, 250, 1500)
+    move_servo(c.SERVO_ARM, c.ARM_DROP)
+    #Rotates to angle towards hay
+    rotate(-100, 500)
+    #Drives to hay and rotates to be parallel to the wall
+    drive_timed( -200, -200, 3250)
+    rotate(100,2000)
+    #Backs up to leave room for hay arm
+    #This value may need to be fixed
+    drive_timed(100,100,700)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER)
+    #Collects hay
+    #Distance has not been checked yet
+    drive_timed(-100,-100,4000)
+    #Goal of this code is to line up with hay and pick up all three

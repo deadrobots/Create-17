@@ -31,9 +31,12 @@ def split_drive(left, right, time, increments, turnTime):
     if turnTime < 0:
         turnTime = abs(turnTime)
         power = abs(power)
-    for _ in range(0, increments):
-        drive_timed(left, right, int(time / increments))
-        rotate(power, turnTime)
+    if turnTime == 0:
+        drive_timed(left, right, time)
+    else:
+        for _ in range(0, increments):
+            drive_timed(left, right, int(time / increments))
+            rotate(power, turnTime)
 
 
 def split_drive_condition(left, right, min, time, turnTime, condition, state=True):

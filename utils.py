@@ -97,11 +97,11 @@ def get_wait():  # Used to break a loop after using "setWait". An example would 
 
 
 def on_black_left():
-    return analog(c.LEFT_TOPHAT) > c.THREASHOLD
+    return analog(c.LEFT_TOPHAT) > c.THRESHOLD
 
 
 def on_black_right():
-    return analog(c.RIGHT_TOPHAT) > c.THREASHOLD
+    return analog(c.RIGHT_TOPHAT) > c.THRESHOLD
 
 
 def on_black():

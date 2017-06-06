@@ -140,6 +140,14 @@ def y_not():
     msleep(1000)
 
 
-
 def infinite_y():
     motor_power(c.Y_ARM, -10)
+
+
+def hay_arm(speed):
+    quarter_rotation = 350.0
+    start = get_motor_position_counter(c.HAY_MOTOR)
+    motor_power(c.HAY_MOTOR, speed)
+    while abs(get_motor_position_counter(c.HAY_MOTOR) - start) < quarter_rotation:
+        pass
+    freeze(c.HAY_MOTOR)

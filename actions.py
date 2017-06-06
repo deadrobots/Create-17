@@ -212,7 +212,7 @@ def go_and_dump_blue():
     else:
         drive_timed(-320, -360, 450)
         rotate(-90, 460)
-    drive_timed(-200, -200, 2750)#was 2500
+    drive_timed(-200, -200, 2750)  # was 2500
     move_servo(c.SERVO_ARM, c.ARM_DROP)
     y()
     drive_timed(-250, -250, 300)
@@ -249,9 +249,15 @@ def hay_grab():
     rotate(100,2000)
     #Backs up to leave room for hay arm
     #This value may need to be fixed
-    drive_timed(100,100,700)
+    drive_timed(100,100,800)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER)
     #Collects hay
     #Distance has not been checked yet
-    drive_timed(-100,-100,4000)
+    drive_forever(-250, -250)
+    while not on_black():
+        pass
+    stop()
+    drive_timed(-150, -150, 300)
     #Goal of this code is to line up with hay and pick up all three
+    hay_arm(-50)
+

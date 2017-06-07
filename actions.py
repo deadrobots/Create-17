@@ -64,7 +64,7 @@ def startup_test():
     while left_bumped():
         pass
     print "Left Bumped"
-    drive_conditional(100, 100, on_black, False)
+    drive_conditional(100, 100, on_black_and, False)
     move_servo(c.SERVO_ARM, c.ARM_UP)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     msleep(500)
@@ -105,14 +105,20 @@ def get_out_of_startbox():
     move_servo(c.SERVO_ARM, c.ARM_UP, 100)
     drive_timed(200, 200, 650)
     if c.IS_PRIME:
-        rotate(-100, 1500)
+        rotate(-100, 1350)
     else:
         rotate(-100, 1615)
     wait_for_button()
 
 
 def go_to_far_side():
-    split_drive(500, 495, 4000, 3, c.TURN_TIME)  # 15 and 40
+    drive_timed(500, 495, 1500)
+    print "STOP HERE"
+    DEBUG_with_wait()
+    #split_drive(500, 495, 2850, 3, c.TURN_TIME)  # 15 and 40
+    rotate(100, 1500)
+    drive_timed(400, 400, 550)
+    DEBUG_with_wait()
     drive_forever(200, 200)
     start = seconds()
     if c.IS_PRIME:

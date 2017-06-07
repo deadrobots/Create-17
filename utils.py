@@ -108,6 +108,10 @@ def on_black():
     return on_black_left() or on_black_right()
 
 
+def on_black_and():
+    return on_black_left() and on_black_right()
+
+
 def bumped():
     return get_create_lbump() or get_create_rbump()
 

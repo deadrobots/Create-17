@@ -112,23 +112,26 @@ def get_out_of_startbox():
 
 
 def go_to_far_side():
-    drive_timed(500, 495, 1500)
-    print "STOP HERE"
-    DEBUG_with_wait()
+    drive_timed(500, 495, 2500)
+    rotate(100, 1350)
+    drive_timed(300, 295, 800)
+    drive_timed(-400, -390, 650)
+    rotate(-110, 1350)
+    drive_timed(500, 495, 2000)
     #split_drive(500, 495, 2850, 3, c.TURN_TIME)  # 15 and 40
-    rotate(100, 1500)
-    drive_timed(400, 400, 550)
-    DEBUG_with_wait()
-    drive_forever(200, 200)
-    start = seconds()
-    if c.IS_PRIME:
-        add = 3
-    else:
-        add = 2
-    while seconds() < start + add and not dropped():
-        pass
-    stop()
-    msleep(600)
+    # rotate(100, 1500)
+    # drive_timed(400, 400, 550)
+    # DEBUG_with_wait()
+    # drive_forever(200, 200)
+    # start = seconds()
+    # if c.IS_PRIME:
+    #     add = 3
+    # else:
+    #     add = 2
+    # while seconds() < start + add and not dropped():
+    #     pass
+    # stop()
+    # msleep(600)
 
 
 def go_and_drop_poms():

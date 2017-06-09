@@ -115,6 +115,9 @@ def go_to_far_side():
     drive_timed(500, 495, 2500)
     rotate(100, 1350)
     drive_timed(300, 295, 800)
+    #This debug was to see where the square up lands
+    #We were thinking about changing the pattern to avoid the cow
+    DEBUG_with_wait()
     drive_timed(-400, -390, 650)
     rotate(-110, 1350)
     drive_timed(500, 495, 2000)
@@ -217,10 +220,10 @@ def go_and_dump_blue():
 
     if c.IS_PRIME:
         drive_timed(-320, -360, 300)
-        rotate(-90, 650)
+        rotate(-90, 800)
     else:
         drive_timed(-320, -360, 450)
-        rotate(-90, 460)
+        rotate(-90, 400)
     drive_timed(-200, -200, 2750)  # was 2500
     move_servo(c.SERVO_ARM, c.ARM_DROP)
     y()
@@ -252,10 +255,15 @@ def hay_grab():
     drive_timed(250, 250, 1500)
     move_servo(c.SERVO_ARM, c.ARM_DROP)
     #Rotates to angle towards hay
-    rotate(-100, 500)
+    # rotate(-100, 500)
+
     #Drives to hay and rotates to be parallel to the wall
     drive_timed( -200, -200, 3250)
-    rotate(100,2000)
+    rotate(-100, 3000)
+    while not approach_furrow():
+        drive_timed(-100, -100, 1000)
+    stop()
+    # rotate(100,2000)
     #Backs up to leave room for hay arm
     #This value may need to be fixed
     drive_timed(100,100,800)
@@ -264,6 +272,7 @@ def hay_grab():
     #Distance has not been checked yet
     drive_forever(-250, -250)
     while not on_black():
+        print "Not on black"
         pass
     stop()
     drive_timed(-150, -150, 300)

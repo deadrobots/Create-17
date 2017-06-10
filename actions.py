@@ -121,26 +121,26 @@ def go_to_far_side():
     rotate(-110, 1450)
     drive_timed(250, 250, 1900)
     rotate(95, 1450)
-    drive_forever(200, 200)
-    while not on_black_right() and not on_black_left():
-        pass
-    if on_black_left():
-        drive_forever(0, 200)
-        while not on_black_right():
-            pass
-    elif on_black_right():
-        drive_forever(200, 0)
-        while not on_black_left():
-            pass
-    stop()
-    move_servo(c.SERVO_ARM, c.ARM_DROP, 40)
-    msleep(500)
-    move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 250)
-    msleep(500)
-    move_servo(c.SERVO_ARM, c.ARM_UP, 35)
-    msleep(100)
-    drive_timed(-200,-200, 1500)
-    DEBUG_with_wait()
+
+    # drive_forever(200, 200)
+    # while not on_black_right() and not on_black_left():
+    #     pass
+    # if on_black_left():
+    #     drive_forever(0, 200)
+    #     while not on_black_right():
+    #         pass
+    # elif on_black_right():
+    #     drive_forever(200, 0)
+    #     while not on_black_left():
+    #         pass
+    # stop()
+    # move_servo(c.SERVO_ARM, c.ARM_DROP, 40)
+    # msleep(500)
+    # move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 250)
+    # msleep(500)
+    # move_servo(c.SERVO_ARM, c.ARM_UP, 35)
+    # msleep(100)
+    # drive_timed(-200,-200, 1500)
     #split_drive(500, 495, 2850, 3, c.TURN_TIME)  # 15 and 40
     # rotate(100, 1500)
     # drive_timed(400, 400, 550)
@@ -158,16 +158,16 @@ def go_to_far_side():
 
 
 def go_and_drop_poms():
-    if c.IS_PRIME:
-        drive_timed(-300, -300, 700)  # 700 900 1100
-        rotate(300, 600)  # 650
-    else:
-        drive_timed(-300, -300, 1100)
-        rotate(300, 650)
+    # if c.IS_PRIME:
+    #     drive_timed(-300, -300, 700)  # 700 900 1100
+    #     rotate(300, 600)  # 650
+    # else:
+    #     drive_timed(-300, -300, 1100)
+    #     rotate(300, 650)
+    #
+    # wait_for_button()
 
-    wait_for_button()
-
-    drive_timed(100, 100, 750)
+    # drive_timed(100, 100, 750)
     # msleep(1000)
 
     while not approach_furrow():
@@ -210,45 +210,12 @@ def approach_furrow():
 
 
 def go_and_dump_blue():
-    drive_timed(-200, -200, 2500)  # 3000
-
+    drive_timed(-400, -400, 1000)
+    rotate(-300, 900)
     wait_for_button()
-
-    drive_forever(-100, -100)
-    while not on_black_right() and not on_black_left():
-        pass
-    if on_black_left():
-        drive_forever(0, -200)
-        while not on_black_right():
-            pass
-    elif on_black_right():
-        drive_forever(-200, 0)
-        while not on_black_left():
-            pass
-    stop()
-
-    drive_forever(-200, -200)
-    while not bumped():
-        pass
-    if c.IS_PRIME:
-        drive_timed(100, 100, 200)
-        rotate(-90, 1800)
-    else:
-        drive_timed(500, 500, 30)
-        rotate(-90, 1700)
-    drive_timed(300, 300, 1700)
-
-    if c.IS_PRIME:
-        drive_timed(-320, -360, 300)
-        rotate(-90, 800)
-    else:
-        drive_timed(-320, -360, 450)
-        rotate(-90, 400)
-    drive_timed(-200, -200, 2750)  # was 2500
-    move_servo(c.SERVO_ARM, c.ARM_DROP)
+    move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     y()
-    drive_timed(-250, -250, 300)
-    wait_for_button()
+    wait_for_button(True)
     drive_forever(-200, -200)
     while not bumped():
         pass

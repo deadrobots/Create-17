@@ -25,6 +25,8 @@ def wait_for_button(force=False):
 def DEBUG(PrintTime=True):
     create_drive_direct(0, 0)
     ao()
+    create_safe()
+    msleep(100)
     create_disconnect()
     if PrintTime:
         print 'Program stop for DEBUG\nSeconds: ', seconds() - c.START_TIME
@@ -34,6 +36,8 @@ def DEBUG(PrintTime=True):
 def EXIT():
     create_drive_direct(0, 0)
     ao()
+    create_safe()
+    msleep(100)
     create_disconnect()
     print 'Program finished!\nSeconds: ', seconds() - c.START_TIME
     exit(0)

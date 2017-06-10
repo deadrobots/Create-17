@@ -105,7 +105,7 @@ def get_out_of_startbox():
     move_servo(c.SERVO_ARM, c.ARM_UP, 100)
     drive_timed(200, 200, 650)
     if c.IS_PRIME:
-        rotate(-100, 1350)
+        rotate(-100, 1400)
     else:
         rotate(-100, 1615)
     wait_for_button()
@@ -114,13 +114,33 @@ def get_out_of_startbox():
 def go_to_far_side():
     drive_timed(500, 495, 2500)
     rotate(100, 1350)
-    drive_timed(300, 295, 800)
+    drive_timed(300, 295, 1200)
     #This debug was to see where the square up lands
     #We were thinking about changing the pattern to avoid the cow
+    drive_timed(-400, -390, 390)
+    rotate(-110, 1450)
+    drive_timed(250, 250, 1900)
+    rotate(95, 1450)
+    drive_forever(200, 200)
+    while not on_black_right() and not on_black_left():
+        pass
+    if on_black_left():
+        drive_forever(0, 200)
+        while not on_black_right():
+            pass
+    elif on_black_right():
+        drive_forever(200, 0)
+        while not on_black_left():
+            pass
+    stop()
+    move_servo(c.SERVO_ARM, c.ARM_DROP, 40)
+    msleep(500)
+    move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 250)
+    msleep(500)
+    move_servo(c.SERVO_ARM, c.ARM_UP, 35)
+    msleep(100)
+    drive_timed(-200,-200, 1500)
     DEBUG_with_wait()
-    drive_timed(-400, -390, 650)
-    rotate(-110, 1350)
-    drive_timed(500, 495, 2000)
     #split_drive(500, 495, 2850, 3, c.TURN_TIME)  # 15 and 40
     # rotate(100, 1500)
     # drive_timed(400, 400, 550)

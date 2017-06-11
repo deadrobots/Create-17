@@ -115,12 +115,10 @@ def go_to_far_side():
     drive_timed(500, 495, 2500)
     rotate(100, 1350)
     drive_timed(300, 295, 1200)
-    #This debug was to see where the square up lands
-    #We were thinking about changing the pattern to avoid the cow
     drive_timed(-400, -390, 390)
     rotate(-110, 1450)
     drive_timed(250, 250, 1900)
-    rotate(95, 1450)
+    rotate(95, 1500)
 
     # drive_forever(200, 200)
     # while not on_black_right() and not on_black_left():
@@ -212,10 +210,10 @@ def approach_furrow():
 def go_and_dump_blue():
     drive_timed(-400, -400, 1000)
     rotate(-300, 900)
-    wait_for_button()
+    # wait_for_button()
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     y()
-    wait_for_button(True)
+    # wait_for_button(True)
     drive_forever(-200, -200)
     while not bumped():
         pass
@@ -224,9 +222,11 @@ def go_and_dump_blue():
 
 
 def hay_grab():
-    drive_timed(200, 200, 1500)
+    drive_timed(200,200,1500)
     y_not()
-    drive_forever(100, 100)
+    move_servo(c.SERVO_ARM,c.ARM_UP,25)
+    rotate(200, 1200)
+    drive_forever(200, 200)
     while not on_black_right() and not on_black_left():
         pass
     if on_black_left():
@@ -238,31 +238,63 @@ def hay_grab():
         while not on_black_left():
             pass
     stop()
-    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_STORE)
-    drive_timed(250, 250, 1500)
-    move_servo(c.SERVO_ARM, c.ARM_DROP)
-    #Rotates to angle towards hay
-    # rotate(-100, 500)
 
-    #Drives to hay and rotates to be parallel to the wall
-    drive_timed( -200, -200, 3250)
-    rotate(-100, 3000)
-    while not approach_furrow():
-        drive_timed(-100, -100, 1000)
-    stop()
-    # rotate(100,2000)
-    #Backs up to leave room for hay arm
-    #This value may need to be fixed
-    drive_timed(100,100,800)
-    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER)
-    #Collects hay
-    #Distance has not been checked yet
-    drive_forever(-250, -250)
-    while not on_black():
-        print "Not on black"
-        pass
-    stop()
-    drive_timed(-150, -150, 300)
-    #Goal of this code is to line up with hay and pick up all three
-    hay_arm(-50)
+    drive_timed(-100,-100,1500)
+    rotate(-200,900)
+    #This code is for collecting the hay
+    move_servo(c.SERVO_HAY_ARM,c.HAY_ARM_GATHER,20)
+    msleep(500)
+    #The hay motor needs to be locked in place for this
+    #Positioning may also need to be changed after hardware changes the arm
+    drive_timed(50,50,5600)
+    #Wait for button so the thin hay arm piece can be put in
+    wait_for_button(True)
+    #This code is to grab the hay
+    #Hasn't been tested so possibly incorrect approach
+    motor_power(c.HAY_MOTOR, -50)
+    msleep(1000)
+
+
+
+    # drive_timed(200, 200, 1500)
+    # y_not()
+    # drive_forever(100, 100)
+    # while not on_black_right() and not on_black_left():
+    #     pass
+    # if on_black_left():
+    #     drive_forever(0, 200)
+    #     while not on_black_right():
+    #         pass
+    # elif on_black_right():
+    #     drive_forever(200, 0)
+    #     while not on_black_left():
+    #         pass
+    # stop()
+    # move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_STORE)
+    # drive_timed(250, 250, 1500)
+    # move_servo(c.SERVO_ARM, c.ARM_DROP)
+    # #Rotates to angle towards hay
+    # # rotate(-100, 500)
+    #
+    # #Drives to hay and rotates to be parallel to the wall
+    # drive_timed( -200, -200, 3250)
+    # rotate(-100, 3000)
+    # while not approach_furrow():
+    #     drive_timed(-100, -100, 1000)
+    # stop()
+    # # rotate(100,2000)
+    # #Backs up to leave room for hay arm
+    # #This value may need to be fixed
+    # drive_timed(100,100,800)
+    # move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER)
+    # #Collects hay
+    # #Distance has not been checked yet
+    # drive_forever(-250, -250)
+    # while not on_black():
+    #     print "Not on black"
+    #     pass
+    # stop()
+    # drive_timed(-150, -150, 300)
+    # #Goal of this code is to line up with hay and pick up all three
+    # hay_arm(-50)
 

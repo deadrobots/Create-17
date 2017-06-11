@@ -13,7 +13,7 @@ def main():
     act.go_to_far_side()
     act.go_and_drop_poms()
     act.go_and_dump_blue()
-    act.shutdown()
+    #act.shutdown()
 
     if c.seeding:
         act.hay_grab()

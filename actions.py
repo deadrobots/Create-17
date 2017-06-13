@@ -66,12 +66,14 @@ def startup_test():
         pass
     print "Left Bumped"
     drive_conditional(100, 100, on_black_and, False)
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
     move_servo(c.SERVO_ARM, c.ARM_UP)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     msleep(500)
     move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
+    rotate_until_stalled(-100, c.HAY_MOTOR)
     y()
     y_not()
 
@@ -120,7 +122,7 @@ def go_to_far_side():
     drive_timed(-400, -390, 390)
     rotate(-110, 1450)
     drive_timed(250, 250, 1900)
-    rotate(95, 1500)
+    rotate(95, 1550)
 
 
 def go_and_drop_poms():
@@ -185,16 +187,40 @@ def hay_grab():
             pass
     stop()
     drive_timed(-100, -100, 1500)
-    rotate(-200, 900)
+    rotate(-200, 850)
+    hay_arm(100, .4)
     # This code is for collecting the hay
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER, 20)
     msleep(500)
     # The hay motor needs to be locked in place for this
     # Positioning may also need to be changed after hardware changes the arm
-    drive_timed(50, 50, 5600)
+    drive_timed(46, 50, 4100)
     # Wait for button so the thin hay arm piece can be put in
-    wait_for_button(True)
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach
-    motor_power(c.HAY_MOTOR, -50)
-    msleep(1000)
+    rotate_until_stalled(-50, c.HAY_MOTOR)
+    motor_power(c.HAY_MOTOR,-40)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP, 20)
+    drive_timed(-100,-100,1000)
+    rotate(100, 1700)
+    drive_timed(-100,-100,3000)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
+    drive_timed(-100,-100,1500)
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)
+
+
+def rotate_until_stalled(speed, motor):
+    counter = 0
+    motor_power(motor, speed)
+    previous = abs(get_motor_position_counter(motor))
+    while counter < 10:
+        if abs(get_motor_position_counter(motor)) == previous:
+            counter += 1
+        else:
+            counter = 0
+            previous = abs(get_motor_position_counter(motor))
+        msleep(10)
+    freeze(motor)
+    clear_motor_position_counter(motor)
+

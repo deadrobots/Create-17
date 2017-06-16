@@ -24,7 +24,9 @@ def init():
     startup_test()
     wait_for_button(True)
     move_servo(c.SERVO_ARM, c.ARM_BACK)
-    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
+    #These servo movements allow the create to fit inside the start box
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_START)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_START)
     infinite_y()
     print"Press the left button to run seeding code and right to run head to head code"
     while not left_button() or right_button():
@@ -91,6 +93,9 @@ def test():
 
 
 def get_out_of_startbox():
+
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
     drive_forever(200, 200)
     while not on_black_right() and not on_black_left():
@@ -173,21 +178,22 @@ def hay_grab():
     drive_timed(200, 200, 1500)
     y_not()
     move_servo(c.SERVO_ARM, c.ARM_UP, 25)
-    rotate(200, 1200)
-    drive_forever(200, 200)
+    rotate(200, 1120)
+    drive_forever(100, 100)
     while not on_black_right() and not on_black_left():
         pass
     if on_black_left():
-        drive_forever(0, 200)
+        drive_forever(0, 100)
         while not on_black_right():
             pass
     elif on_black_right():
-        drive_forever(200, 0)
+        drive_forever(100, 0)
         while not on_black_left():
             pass
     stop()
     drive_timed(-100, -100, 1500)
     rotate(-200, 850)
+
     hay_arm(100, .4)
     # This code is for collecting the hay
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER, 20)
@@ -202,7 +208,7 @@ def hay_grab():
     motor_power(c.HAY_MOTOR,-40)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP, 20)
     drive_timed(-100,-100,1000)
-    rotate(100, 1700)
+    rotate(100, 1500)
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
     drive_timed(-100,-100,1500)

@@ -167,6 +167,7 @@ def go_and_dump_blue():
     drive_timed(-400, -400, 1000)
     rotate(-300, 900)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
+    msleep(19000)
     y()
     drive_forever(-200, -200)
     while not bumped():
@@ -211,7 +212,11 @@ def hay_grab():
     rotate(100, 1500)
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
-    drive_timed(-100,-100,1500)
+    # drive_timed(-100,-100,1500)
+    drive_forever(-100, -100)
+    while not bumped():
+        pass
+    stop()
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)
 

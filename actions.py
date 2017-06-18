@@ -37,6 +37,9 @@ def init():
     elif right_button():
         c.seeding = False
         print "head to head"
+    while left_button() or right_button():
+        pass
+    wait_4_light()
     c.START_TIME = seconds()
 
 
@@ -75,7 +78,7 @@ def startup_test():
     move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
-    rotate_until_stalled(-100, c.HAY_MOTOR)
+    rotate_until_stalled(-20, c.HAY_MOTOR)
     y()
     y_not()
 
@@ -219,13 +222,16 @@ def hay_grab():
     stop()
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)
+    freeze(c.HAY_MOTOR)
+    msleep(1000)
 
 
 def rotate_until_stalled(speed, motor):
     counter = 0
     motor_power(motor, speed)
     previous = abs(get_motor_position_counter(motor))
-    while counter < 10:
+    start = seconds()
+    while counter < 10 and seconds() < start + 5:
         if abs(get_motor_position_counter(motor)) == previous:
             counter += 1
         else:
@@ -233,5 +239,7 @@ def rotate_until_stalled(speed, motor):
             previous = abs(get_motor_position_counter(motor))
         msleep(10)
     freeze(motor)
+    if seconds() > start + 5:
+        print("Motor was unable to reach stalled position in time.")
     clear_motor_position_counter(motor)
 

@@ -18,7 +18,7 @@ def init():
         print "I DON'T KNOW WHAT I AM"
     set_servo_position(c.SERVO_ARM, c.ARM_DOWN)
     set_servo_position(c.SERVO_CLAW, c.CLAW_OPEN)
-    set_servo_position(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
+    set_servo_position(c.SERVO_HAY_ARM, c.HAY_ARM_BARN)
     enable_servos()
     msleep(500)
     startup_test()
@@ -41,7 +41,6 @@ def init():
         pass
     wait_4_light()
     c.START_TIME = seconds()
-    DEBUG_with_wait()
 
 
 def shutdown():

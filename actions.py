@@ -41,6 +41,7 @@ def init():
         pass
     wait_4_light()
     c.START_TIME = seconds()
+    DEBUG_with_wait()
 
 
 def shutdown():

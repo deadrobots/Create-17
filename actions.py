@@ -98,7 +98,10 @@ def test():
 def get_out_of_startbox():
 
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
-    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
+    if c.IS_PRIME:
+        move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
+    else:
+        move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_START_BOX)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
     drive_forever(200, 200)
     while not on_black_right() and not on_black_left():
@@ -119,12 +122,14 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1400)
     else:
-        rotate(-100, 1615)
-    wait_for_button()
+        rotate(-100, 1400)
 
 
 def go_to_far_side():
-    drive_timed(500, 495, 2500)
+    if c.IS_PRIME:
+        drive_timed(500, 495, 2500)
+    else:
+        drive_timed(500, 495, 2600)
     rotate(100, 1350)
     drive_timed(300, 295, 1200)
     drive_timed(-400, -390, 390)
@@ -172,6 +177,7 @@ def go_and_dump_blue():
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     msleep(19000)
     y()
+    msleep(3000)
     drive_forever(-200, -200)
     while not bumped():
         pass
@@ -200,7 +206,8 @@ def hay_grab():
 
     hay_arm(100, .4)
     # This code is for collecting the hay
-    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_GATHER, 20)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_PICK_UP, 20)
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_PICK_UP)
     msleep(500)
     # The hay motor needs to be locked in place for this
     # Positioning may also need to be changed after hardware changes the arm
@@ -220,10 +227,16 @@ def hay_grab():
     while not bumped():
         pass
     stop()
-    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
+    if c.IS_PRIME:
+        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
+    else:
+        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN_CLONE)
+    if c.IS_CLONE:
+        rotate(100, 400)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)
     freeze(c.HAY_MOTOR)
     msleep(1000)
+
 
 
 def rotate_until_stalled(speed, motor):

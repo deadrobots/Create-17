@@ -64,11 +64,11 @@ def move_servo(servo, endPos, speed=10):  # Moves a servo with increment "speed"
     if speed == 0:
         speed = 2047
     if endPos >= 2048:
-        print "Programmer Error"
-        exit(0)
+        endPos = 2047
+        print("Assuming 2047")
     if endPos < 0:
-        print "Programmer Error"
-        exit(0)
+        endPos = 0
+        print("Assuming 0")
     if now > endPos:
         speed = -speed
     for i in range(int(now), int(endPos), int(speed)):
@@ -139,8 +139,8 @@ def dropped():
 
 
 def y():
-    motor_power(c.Y_ARM, 100)
-    msleep(1000)
+    motor_power(c.Y_ARM, 50)
+    msleep(2000)
 
 
 def y_not():

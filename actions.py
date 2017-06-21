@@ -39,7 +39,9 @@ def init():
         print "head to head"
     while left_button() or right_button():
         pass
-    wait_4_light()
+    #wait_4_light()
+    msleep(500)
+    wait_for_button(True)
     c.START_TIME = seconds()
 
 
@@ -122,7 +124,7 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1400)
     else:
-        rotate(-100, 1400)
+        rotate(-100, 1500)
 
 
 def go_to_far_side():
@@ -131,6 +133,7 @@ def go_to_far_side():
     else:
         drive_timed(500, 495, 2600)
     rotate(100, 1350)
+    DEBUG_with_wait()
     drive_timed(300, 295, 1200)
     drive_timed(-400, -390, 390)
     rotate(-110, 1450)

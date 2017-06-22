@@ -131,14 +131,25 @@ def go_to_far_side():
     if c.IS_PRIME:
         drive_timed(500, 495, 2500)
     else:
-        drive_timed(500, 495, 2600)
-    rotate(100, 1350)
-    DEBUG_with_wait()
+        drive_timed(500, 495, 3600)
+    if c.IS_PRIME:
+        rotate(100, 1350)
+    else:
+        rotate(100, 1450)
     drive_timed(300, 295, 1200)
     drive_timed(-400, -390, 390)
-    rotate(-110, 1450)
-    drive_timed(250, 250, 1900)
-    rotate(95, 1550)
+    if c.IS_PRIME:
+        rotate(-110, 1450)
+    else:
+        rotate(-110, 1550)
+    if c.IS_PRIME:
+            drive_timed(250, 250, 1900)
+    else:
+        drive_timed(250, 250, 1300)
+    if c.IS_PRIME:
+        rotate(95, 1550)
+    else:
+        rotate(95, 2050)
 
 
 def go_and_drop_poms():
@@ -176,9 +187,12 @@ def approach_furrow():
 
 def go_and_dump_blue():
     drive_timed(-400, -400, 1000)
-    rotate(-300, 900)
+    if c.IS_PRIME:
+        rotate(-300, 900)
+    else:
+        rotate(-300,850)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
-    msleep(19000)
+    msleep(2000)#19000
     y()
     msleep(3000)
     drive_forever(-200, -200)
@@ -225,6 +239,7 @@ def hay_grab():
     rotate(100, 1500)
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
+    DEBUG_with_wait()
     # drive_timed(-100,-100,1500)
     drive_forever(-100, -100)
     while not bumped():

@@ -139,7 +139,10 @@ def dropped():
 
 
 def y():
-    motor_power(c.Y_ARM, 50)
+    if c.IS_PRIME:
+        motor_power(c.Y_ARM, 50)
+    else:
+        motor_power(c.Y_ARM, 75)
     msleep(2000)
 
 

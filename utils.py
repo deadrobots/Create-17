@@ -140,13 +140,14 @@ def dropped():
 
 def y():
     if c.IS_PRIME:
-        motor_power(c.Y_ARM, 50)
+        motor_power(c.Y_ARM, 75)#50
     else:
         motor_power(c.Y_ARM, 75)
     msleep(2000)
 
 
 def y_not():
+    #Why is this soo slow
     motor_power(c.Y_ARM, -50)
     msleep(1000)
 

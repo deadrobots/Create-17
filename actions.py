@@ -72,6 +72,10 @@ def startup_test():
     while left_bumped():
         pass
     print "Left Bumped"
+    y()
+    y_not()
+    print "push the button"
+    wait_for_button(True)
     drive_conditional(100, 100, on_black_and, False)
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
     move_servo(c.SERVO_ARM, c.ARM_UP)
@@ -80,9 +84,9 @@ def startup_test():
     move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
+    hay_arm(25, .4)
     rotate_until_stalled(-20, c.HAY_MOTOR)
-    y()
-    y_not()
+
 
 
 def test():
@@ -188,7 +192,7 @@ def approach_furrow():
 def go_and_dump_blue():
     drive_timed(-400, -400, 1000)
     if c.IS_PRIME:
-        rotate(-300, 900)
+        rotate(-300,850)#900
     else:
         rotate(-300,850)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
@@ -202,8 +206,9 @@ def go_and_dump_blue():
 
 
 def hay_grab():
-    drive_timed(200, 200, 1500)
+    drive_timed(200, 200, 1800)
     y_not()
+    drive_timed(-200, -200, 300)
     move_servo(c.SERVO_ARM, c.ARM_UP, 25)
     rotate(200, 1120)
     drive_forever(100, 100)
@@ -218,12 +223,19 @@ def hay_grab():
         while not on_black_left():
             pass
     stop()
-    drive_timed(-100, -100, 1500)
-    rotate(-200, 850)
+    if c.IS_PRIME:
+        drive_timed(-100, -100, 1420)
+        rotate(-200, 830)
+    else:
+        drive_timed(-100, -100, 1500)
+        rotate(-200, 850)
 
     hay_arm(100, .4)
     # This code is for collecting the hay
-    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_PICK_UP, 20)
+    if c.IS_PRIME:
+        move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_PICK_DRIVE, 20)
+    else:
+        move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_PICK_UP, 20)
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_PICK_UP)
     msleep(500)
     # The hay motor needs to be locked in place for this
@@ -232,6 +244,8 @@ def hay_grab():
     # Wait for button so the thin hay arm piece can be put in
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach
+    if c.IS_PRIME:
+        move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_PICK_UP, 20)
     rotate_until_stalled(-50, c.HAY_MOTOR)
     motor_power(c.HAY_MOTOR,-40)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP, 20)
@@ -239,7 +253,6 @@ def hay_grab():
     rotate(100, 1500)
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
-    DEBUG_with_wait()
     # drive_timed(-100,-100,1500)
     drive_forever(-100, -100)
     while not bumped():

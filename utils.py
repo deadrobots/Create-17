@@ -159,7 +159,7 @@ def infinite_y():
 def hay_arm(speed, rotations):
     full_rotation = 1400.0
     start = get_motor_position_counter(c.HAY_MOTOR)
-    motor_power(c.HAY_MOTOR, speed)
+    motor_power(c.HAY_MOTOR, -speed)
     while abs(get_motor_position_counter(c.HAY_MOTOR) - start) < (full_rotation*rotations):
         pass
     freeze(c.HAY_MOTOR)

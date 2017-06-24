@@ -128,32 +128,33 @@ def get_out_of_startbox():
     if c.IS_PRIME:
         rotate(-100, 1400)
     else:
-        rotate(-100, 1500)
+        rotate(-100, 1400)
 
 
 def go_to_far_side():
     if c.IS_PRIME:
         drive_timed(500, 495, 2500)
     else:
-        drive_timed(500, 495, 3600)
+        drive_timed(500, 495, 2600)
     if c.IS_PRIME:
         rotate(100, 1350)
     else:
-        rotate(100, 1450)
+        rotate(100, 1350)
     drive_timed(300, 295, 1200)
     drive_timed(-400, -390, 390)
     if c.IS_PRIME:
         rotate(-110, 1450)
     else:
-        rotate(-110, 1550)
+        rotate(-110, 1450)
     if c.IS_PRIME:
-            drive_timed(250, 250, 1900)
+        drive_timed(250, 250, 1900)
     else:
-        drive_timed(250, 250, 1300)
+        drive_timed(250, 250, 1900)
     if c.IS_PRIME:
         rotate(95, 1550)
     else:
-        rotate(95, 2050)
+        rotate(95, 1550)
+
 
 
 def go_and_drop_poms():
@@ -194,11 +195,12 @@ def go_and_dump_blue():
     if c.IS_PRIME:
         rotate(-300,850)#900
     else:
-        rotate(-300,850)
+        rotate(-300,900)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     msleep(2000)#19000
     y()
     msleep(3000)
+    DEBUG()
     drive_forever(-200, -200)
     while not bumped():
         pass

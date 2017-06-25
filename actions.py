@@ -78,13 +78,14 @@ def startup_test():
     print "Left Bumped"
     y()
     y_not()
-    print "push the button"
+    # print "push the button"
     wait_for_button(True)
     drive_conditional(100, 100, on_black_and, False)
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
     move_servo(c.SERVO_ARM, c.ARM_UP)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     msleep(500)
+    rotate_until_stalled(-50, c.HAY_MOTOR)
     move_servo(c.SERVO_CLAW, c.CLAW_CLOSE, 100)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 100)
     move_servo(c.SERVO_ARM, c.ARM_DOWN)
@@ -133,6 +134,7 @@ def get_out_of_startbox():
     move_servo(c.SERVO_ARM, c.ARM_UP, 100)
     drive_timed(200, 200, 650)
     if c.IS_PRIME:
+        drive_timed(100, 100, 200)
         rotate(-100, 1400)
     else:
         rotate(-100, 1400)
@@ -156,16 +158,19 @@ def go_to_far_side():
     if c.IS_PRIME:
         drive_timed(250, 250, 1900)
     else:
-        drive_timed(250, 250, 1700)
+        drive_timed(250, 250, 1750)
     if c.IS_PRIME:
         rotate(95, 1550)
     else:
         rotate(95, 1550)
 
 
-
 def go_and_drop_poms():
     while not approach_furrow():
+        drive_timed(-100, -100, 2000)
+        rotate(-100, 250)
+    stop()
+    while not approach_furrow(50, 5):
         drive_timed(-100, -100, 2000)
         rotate(-100, 250)
     stop()
@@ -177,26 +182,26 @@ def go_and_drop_poms():
     msleep(100)
 
 
-def approach_furrow():
-    limit = seconds() + 3
-    drive_forever(100, 100)
+def approach_furrow(speed=100, limit_time=3):
+    limit = seconds() + limit_time
+    drive_forever(speed, speed)
     while not on_black_left() and not on_black_right() and seconds() < limit:
         pass
     if on_black_right():
         print("on right")
-        drive_forever(100, 0)
+        drive_forever(speed, 0)
         while not on_black_left() and seconds() < limit:
             pass
-        drive_forever(0,-100)
+        drive_forever(0,-speed)
         while on_black_right() and seconds < limit:
             pass
         print("found left")
     elif on_black_left():
         print("on left")
-        drive_forever(0, 100)
+        drive_forever(0, speed)
         while not on_black_right() and seconds() < limit:
             pass
-        drive_forever(-100, 0)
+        drive_forever(-speed, 0)
         while on_black_left() and seconds() < limit:
             pass
         print("found right")
@@ -206,7 +211,7 @@ def approach_furrow():
 def go_and_dump_blue():
     drive_timed(-400, -400, 1000)
     if c.IS_PRIME:
-        rotate(-300,850)#900
+        rotate(-300,950)#900
     else:
         rotate(-300,900)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
@@ -221,62 +226,82 @@ def go_and_dump_blue():
         pass
     if seconds() > end:
         # wait_for_button(True)
-        drive_timed(-300, -300, 500)
+        drive_timed(150, 150, 500)
         y_not()
-        end = seconds() + 3
         drive_forever(-200, -200)
-        while not bumped() and seconds() < end:
+        end_two = seconds() + 3
+        print("Seconds: {}\t\tend_two: {}\t\tBumped: {}".format(seconds(), end_two, bumped()))
+        while not bumped() and seconds() < end_two:
             pass
+        print("Seconds: {}\t\tend_two: {}\t\tBumped: {}".format(seconds(), end_two, bumped()))
     stop()
 
 
 def hay_grab():
-    drive_timed(200, 200, 1700)
+    if c.IS_PRIME:
+        drive_timed(200, 200, 1700)
+    else:
+        drive_timed(200, 200, 1750)
     y_not()
+
+    rotate(200, 1500)
+
+    DEBUG_with_wait()
+
     drive_timed(-200, -200, 300)
     move_servo(c.SERVO_ARM, c.ARM_UP, 25)
     rotate(200, 1120)
     drive_forever(25, 25)
-    while not on_black_right() and not on_black_left():
-        pass
-    if on_black_left():
-        drive_forever(0, 25)
-        while not on_black_right():
-            pass
-        drive_forever(-25, 0)
-        while on_black_left() and seconds:
-            pass
-    elif on_black_right():
-        drive_forever(25, 0)
-        while not on_black_left():
-            pass
-        drive_forever(0, -25)
-        while on_black_right() and seconds:
-            pass
+    # while not on_black_right() and not on_black_left():
+    #     pass
+    # if on_black_left():
+    #     drive_forever(0, 25)
+    #     while not on_black_right():
+    #         pass
+    #     drive_forever(-25, 0)
+    #     while on_black_left() and seconds:
+    #         pass
+    # elif on_black_right():
+    #     drive_forever(25, 0)
+    #     while not on_black_left():
+    #         pass
+    #     drive_forever(0, -25)
+    #     while on_black_right() and seconds:
+    #         pass
+    # stop()
+    # while not on_black_right() and not on_black_left():
+    #     pass
+    # if on_black_left():
+    #     drive_forever(0, 25)
+    #     while not on_black_right():
+    #         pass
+    #     drive_forever(-25, 0)
+    #     while on_black_left() and seconds:
+    #         pass
+    # elif on_black_right():
+    #     drive_forever(25, 0)
+    #     while not on_black_left():
+    #         pass
+    #     drive_forever(0, -25)
+    #     while on_black_right() and seconds:
+    #         pass
+    # stop()
+
+    while not approach_furrow(100, 10):
+        drive_timed(-100, -100, 2000)
+        rotate(-100, 250)
     stop()
-    while not on_black_right() and not on_black_left():
-        pass
-    if on_black_left():
-        drive_forever(0, 25)
-        while not on_black_right():
-            pass
-        drive_forever(-25, 0)
-        while on_black_left() and seconds:
-            pass
-    elif on_black_right():
-        drive_forever(25, 0)
-        while not on_black_left():
-            pass
-        drive_forever(0, -25)
-        while on_black_right() and seconds:
-            pass
+    while not approach_furrow(25, 15):
+        drive_timed(-100, -100, 2000)
+        rotate(-100, 250)
     stop()
+
     if c.IS_PRIME:
-        drive_timed(-100, -100, 1420)
-        rotate(-200, 830)
+        drive_timed(-100, -100, 1150)
+        rotate(-200, 950)
     else:
-        drive_timed(-100, -100, 1500)
-        rotate(-200, 850)
+        drive_timed(-100, -100, 1300)
+        rotate(-200, 950)
     hay_arm(100, .4)
     # This code is for collecting the hay
     if c.IS_PRIME:
@@ -287,7 +312,10 @@ def hay_grab():
     msleep(500)
     # The hay motor needs to be locked in place for this
     # Positioning may also need to be changed after hardware changes the arm
-    drive_timed(46, 50, 4100)
+    if c.IS_PRIME:
+        drive_timed(46, 50, 4500)
+    else:
+        drive_timed(46, 50, 3900)
     # Wait for button so the thin hay arm piece can be put in
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach
@@ -298,7 +326,9 @@ def hay_grab():
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP, 20)
     drive_timed(-100,-100,1000)
     rotate(100, 1500)
-    DEBUG()
+
+    # wait_for_button(True)
+
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
     rotate(100, 300)
@@ -310,9 +340,9 @@ def hay_grab():
     if c.IS_PRIME:
         move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
     else:
-        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN_CLONE)
-    if c.IS_CLONE:
-        rotate(100, 400)
+        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
+    # if c.IS_CLONE:
+        # rotate(100, 400)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)
     freeze(c.HAY_MOTOR)
     msleep(1000)
@@ -337,7 +367,7 @@ def rotate_until_stalled(speed, motor):
 
 
 def wait_for_someone_to_rotate(motor):
-    print("please spin me back and load poms")
+    print("please spin me back")
     clear_motor_position_counter(motor)
     while abs(get_motor_position_counter(motor)) < 350:
         pass

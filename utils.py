@@ -117,7 +117,8 @@ def on_black_and():
 
 
 def bumped():
-    return get_create_lbump() or get_create_rbump()
+    bump = get_create_lbump() or get_create_rbump()
+    return bump
 
 
 def left_bumped():

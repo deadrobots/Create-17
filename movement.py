@@ -1,4 +1,5 @@
 from wallaby import *
+from math import pi
 
 
 def drive_timed(left, right, time):
@@ -67,3 +68,24 @@ def drive_forever(left, right):
 
 def stop():
     create_stop()
+
+
+INCH_TO_MIL = 25.4
+def drive_distance(distance, speed):
+
+    dist_mil = INCH_TO_MIL * distance
+    time = dist_mil / speed
+    drive_timed(speed, speed, time)
+
+
+def rotate_degrees(degrees, speed):
+    diameter_inch = 9
+    diameter_mil = diameter_inch * INCH_TO_MIL
+    if degrees < 0:
+        speed = -speed
+        degrees = -degrees
+    angle = abs(degrees / 360.0)
+    circ = pi * diameter_mil
+    drive_mil = angle * circ
+    time = drive_mil / speed
+    rotate(speed, time)

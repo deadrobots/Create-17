@@ -79,13 +79,31 @@ def drive_distance(distance, speed):
 
 
 def rotate_degrees(degrees, speed):
-    diameter_inch = 9
-    diameter_mil = diameter_inch * INCH_TO_MIL
     if degrees < 0:
         speed = -speed
-        degrees = -degrees
-    angle = abs(degrees / 360.0)
-    circ = pi * diameter_mil
-    drive_mil = angle * circ
-    time = drive_mil / speed
-    rotate(speed, time)
+        degrees = abs(degrees)
+    degrees = degrees * 1.13
+    set_create_total_angle(0)
+    drive_forever(-speed, speed)
+    while abs(get_create_total_angle()) < degrees:
+        pass
+    stop()
+
+    # diameter_inch = 9
+    # diameter_mil = diameter_inch * INCH_TO_MIL
+    # if degrees < 0:
+    #     speed = -speed
+    #     degrees = -degrees
+    # angle = abs(degrees / 360.0)
+    # circ = pi * diameter_mil
+    # drive_mil = angle * circ
+    # time = drive_mil / speed
+    # rotate(speed, time)
+
+
+def drive_accel(speed, time):
+    for sub_speed in range(0, speed+1, 100):
+        create_drive_direct(-sub_speed, -sub_speed)
+        msleep(100)
+    msleep(time)
+    create_drive_direct(0, 0)

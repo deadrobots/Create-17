@@ -77,3 +77,6 @@ if IS_CLONE:
     TURN_TIME = 40
 
 seeding = False
+
+LOGFILE = "" # Leave empty
+ROBOT_NAME = "Create-17"

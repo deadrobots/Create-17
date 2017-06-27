@@ -2,10 +2,11 @@
 import os, sys
 import actions as act
 import constants as c
+from logger import log as display
 
 
 def main():
-    print("Hello!")
+    display("Hello!")
     act.init()
     act.get_out_of_startbox()
     act.go_to_far_side()

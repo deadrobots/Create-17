@@ -149,29 +149,32 @@ def get_out_of_startbox():
         # rotate(-100, 1400)
         rotate_degrees(-80, 100)
     else:
-        rotate(-100, 1400)
+        rotate(-100, 1500)
 
 
 def go_to_far_side():
     if c.IS_PRIME:
-        drive_timed(500, 495, 2200)
+        drive_timed(500, 495, 2300)
         # drive_accel(500, 2000)
         # DEBUG()
     else:
-        drive_timed(500, 495, 2600)
+        display("Long Drive")
+        drive_timed(500, 495, 3000)#2600
     if c.IS_PRIME:
         # rotate(100, 1350)
         drive_timed(0, 300, 1350)
     else:
-        rotate(100, 1350)
-    drive_timed(300, 295, 1000)
+        # rotate(100, 1350)
+        drive_timed(0, 300, 1350)
+    drive_timed(200, 195, 1500)
     drive_timed(-400, -390, 400)
     if c.IS_PRIME:
         rotate(-110, 1450)
     else:
         rotate(-110, 1450)
+    DEBUG()
     if c.IS_PRIME:
-        drive_timed(250, 250, 1500)
+        drive_timed(250, 250, 2000)
     else:
         drive_timed(250, 250, 1750)
     # DEBUG()
@@ -268,7 +271,7 @@ def hay_grab():
     drive_timed(100, 100, 1000)
     drive_timed(-100, -100, 1250)
     # rotate(-100, 1450)
-    rotate_degrees(-83, 100)
+    rotate_degrees(-87, 100)
 
     drive_forever(100, 100)
     while not on_black_right():
@@ -356,14 +359,15 @@ def hay_grab():
     motor_power(c.HAY_MOTOR,40)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP, 20)
     drive_timed(-100,-100,1000)
-    rotate(100, 1500)
-
+    rotate(100, 1700) #Rotate to get hay
+    # rotate_degrees(85, 100)
     # wait_for_button(True)
 
     drive_timed(-100,-100,3000)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_BARN, 10)
     rotate(100, 300)
-    # drive_timed(-100,-100,1500)
+    # drive_t
+    # imed(-100,-100,1500)
     drive_forever(-100, -100)
     while not bumped():
         pass

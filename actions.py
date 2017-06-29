@@ -44,9 +44,7 @@ def init():
         display("head to head")
     while left_button() or right_button():
         pass
-    #wait_4_light()
-    msleep(500)
-    wait_for_button(True)
+    wait_4_light()
     c.START_TIME = seconds()
 
 
@@ -172,7 +170,7 @@ def go_to_far_side():
         rotate(-110, 1450)
     else:
         rotate(-110, 1450)
-    DEBUG()
+    # DEBUG()
     if c.IS_PRIME:
         drive_timed(250, 250, 2000)
     else:
@@ -234,7 +232,7 @@ def go_and_dump_blue():
     else:
         rotate(-300,900)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
-    msleep(2000)#19000
+    msleep(19000)#2000
     y()
     # wait_for_button(True)
     msleep(3000)
@@ -271,16 +269,19 @@ def hay_grab():
     drive_timed(100, 100, 1000)
     drive_timed(-100, -100, 1250)
     # rotate(-100, 1450)
-    rotate_degrees(-87, 100)
+    rotate_degrees(-89, 100)
 
-    drive_forever(100, 100)
-    while not on_black_right():
+    #end = seconds() + 50
+
+
+    drive_forever(75, 75)
+    while not on_black_right() and not front_bumped():   #or seconds < end: #
         pass
+    if front_bumped():   #or seconds >= end
+        drive_timed(-96,-100,4)
     stop()
     drive_timed(-100, -100, 800)
-
-    wait_for_button(True)
-
+    # wait_for_button(True)
     # rotate(200, 1500)
     # drive_timed(-200, -200, 300)
     # move_servo(c.SERVO_ARM, c.ARM_UP, 25)

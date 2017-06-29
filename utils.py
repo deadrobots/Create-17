@@ -214,4 +214,6 @@ def _wait_4(port):
         print("HEAD TO HEAD")
     while analog(port) > c.startLightThresh:
         pass
-    
+
+def front_bumped():
+    return digital(0) > 0

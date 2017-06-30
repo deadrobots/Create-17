@@ -6,6 +6,7 @@ from logger import log as display
 
 
 def init():
+    display("\nFunction: init\n")
     create_disconnect()
     if not create_connect_once():
         display("Create not connected...")
@@ -49,6 +50,7 @@ def init():
 
 
 def shutdown():
+    display("\nFunction: shutdown\n")
     create_safe()
     create_disconnect()
     display ("DONE")
@@ -56,6 +58,7 @@ def shutdown():
 
 
 def startup_test():
+    display("\nstartup_test\n")
     if on_black():
         display ("Start the robot on white!")
         exit(0)
@@ -97,6 +100,7 @@ def startup_test():
 
 
 def test():
+    display("\ntest\n")
     create_disconnect()
     if not create_connect_once():
         display ("Create not connected...")
@@ -109,7 +113,7 @@ def test():
 
 
 def get_out_of_startbox():
-
+    display("\nFunction: get_out_of_startbox\n")
     if c.IS_PRIME:
         move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_UP)
     else:
@@ -151,38 +155,28 @@ def get_out_of_startbox():
 
 
 def go_to_far_side():
+    display("\nFunction: go_to_far_side\n")
     if c.IS_PRIME:
         drive_timed(500, 495, 2300)
-        # drive_accel(500, 2000)
-        # DEBUG()
     else:
         display("Long Drive")
-        drive_timed(500, 495, 3000)#2600
-    if c.IS_PRIME:
-        # rotate(100, 1350)
-        drive_timed(0, 300, 1350)
-    else:
-        # rotate(100, 1350)
-        drive_timed(0, 300, 1350)
-    drive_timed(200, 195, 1500)
+        drive_timed(500, 495, 3000)
+    drive_timed(0, 300, 1350)
+    drive_timed(200, 195, 1500) #square up
     drive_timed(-400, -390, 400)
     if c.IS_PRIME:
         rotate(-110, 1450)
     else:
-        rotate(-110, 1450)
-    # DEBUG()
+        rotate(-110, 1550)
     if c.IS_PRIME:
         drive_timed(250, 250, 2000)
     else:
         drive_timed(250, 250, 1750)
-    # DEBUG()
-    if c.IS_PRIME:
-        rotate(95, 1550)
-    else:
-        rotate(95, 1550)
+    rotate(95, 1550)
 
 
 def go_and_drop_poms():
+    display("\nFunction: go_and_drop_poms\n")
     while not approach_furrow(100, 5):
         drive_timed(-100, -100, 2000)
         rotate(-100, 250)
@@ -200,6 +194,7 @@ def go_and_drop_poms():
 
 
 def approach_furrow(speed=100, limit_time=3):
+    display("\nFunction: approach_furrow\n")
     limit = seconds() + limit_time
     drive_forever(speed, speed)
     while not on_black_left() and not on_black_right() and seconds() < limit:
@@ -226,18 +221,19 @@ def approach_furrow(speed=100, limit_time=3):
 
 
 def go_and_dump_blue():
+    display("\nFunction: go_and_dump_blue\n")
     drive_timed(-400, -400, 1000)
     if c.IS_PRIME:
         rotate(-300,950)#900
     else:
-        rotate(-300,900)
+        rotate(-300,875)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     msleep(19000)#2000
     y()
     # wait_for_button(True)
     msleep(3000)
 
-    end = seconds() + 3
+    end = seconds() + 6
     drive_forever(-200, -200)
     while not bumped() and seconds() < end:
         pass
@@ -255,10 +251,11 @@ def go_and_dump_blue():
 
 
 def hay_grab():
+    display("\nFunction: hay_grab\n")
     if c.IS_PRIME:
         drive_timed(200, 200, 1700)
     else:
-        drive_timed(200, 200, 600)
+        drive_timed(200, 200, 1700)
     y_not()
     drive_forever(-200, -200)
     while not bumped():
@@ -272,9 +269,10 @@ def hay_grab():
     rotate_degrees(-89, 100)
 
     #end = seconds() + 50
-
-
-    drive_forever(75, 75)
+    if c.IS_PRIME:
+        drive_forever(75,95)
+    else:
+        drive_forever(75,75)
     while not on_black_right() and not front_bumped():   #or seconds < end: #
         pass
     if front_bumped():   #or seconds >= end
@@ -348,9 +346,9 @@ def hay_grab():
     # The hay motor needs to be locked in place for this
     # Positioning may also need to be changed after hardware changes the arm
     if c.IS_PRIME:
-        drive_timed(46, 50, 4500)
+        drive_timed(46, 55, 4500)
     else:
-        drive_timed(46, 50, 3900)
+        drive_timed(46, 50, 4700)
     # Wait for button so the thin hay arm piece can be put in
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach
@@ -385,6 +383,7 @@ def hay_grab():
 
 
 def rotate_until_stalled(speed, motor):
+    display("\nFunction: rotate_until_stalled\n")
     counter = 0
     motor_power(motor, -speed)
     previous = abs(get_motor_position_counter(motor))
@@ -403,6 +402,7 @@ def rotate_until_stalled(speed, motor):
 
 
 def wait_for_someone_to_rotate(motor):
+    display("\nFunction: wait_for_someone_to_rotate\n")
     display("please spin me back")
     clear_motor_position_counter(motor)
     while abs(get_motor_position_counter(motor)) < 350:

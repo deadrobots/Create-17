@@ -156,23 +156,41 @@ def get_out_of_startbox():
 
 def go_to_far_side():
     display("\nFunction: go_to_far_side\n")
+    display("Long Drive")
     if c.IS_PRIME:
         drive_timed(500, 495, 2300)
+        drive_timed(0, 300, 1350)
     else:
-        display("Long Drive")
         drive_timed(500, 495, 3000)
-    drive_timed(0, 300, 1350)
+        drive_timed(0, 300, 1250)
     drive_timed(200, 195, 1500) #square up
-    drive_timed(-400, -390, 400)
+    drive_timed(-100, -100, 1250)
+    # rotate(-100, 1450)
+    rotate_degrees(-85, 100)
+
+    #replacement code start
+    end = seconds() + 7
     if c.IS_PRIME:
-        rotate(-110, 1450)
+        drive_forever(75, 95)
     else:
-        rotate(-110, 1550)
+        drive_forever(75, 75)
+    while not on_black_right() and seconds() < end:  # or  not front_bumped()
+        pass
+    if seconds() >= end:  #or front_bumped()
+        drive_timed(-96, -100, 5)
+    stop()
+    drive_timed(-100, -100, 800)
+
+    #drive_timed(-400, -390, 400)
     if c.IS_PRIME:
-        drive_timed(250, 250, 2000)
+        rotate(110, 1450)
     else:
-        drive_timed(250, 250, 1750)
-    rotate(95, 1550)
+        rotate(110, 1550)
+    #if c.IS_PRIME:
+    #    drive_timed(250, 250, 2000)
+    #else:
+    #    drive_timed(250, 250, 1750)
+    #rotate(95, 1550)
 
 
 def go_and_drop_poms():
@@ -222,13 +240,13 @@ def approach_furrow(speed=100, limit_time=3):
 
 def go_and_dump_blue():
     display("\nFunction: go_and_dump_blue\n")
-    drive_timed(-400, -400, 1000)
+    drive_timed(-100, -100, 2500)   #(-400,-400,1000)
     if c.IS_PRIME:
         rotate(-300,950)#900
     else:
-        rotate(-300,875)
+        rotate(-100,2200)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
-    msleep(19000)#2000
+    msleep(17000)#2000
     y()
     # wait_for_button(True)
     msleep(3000)
@@ -268,17 +286,33 @@ def hay_grab():
     # rotate(-100, 1450)
     rotate_degrees(-89, 100)
 
-    #end = seconds() + 50
+    end = seconds() + 50
     if c.IS_PRIME:
         drive_forever(75,95)
     else:
         drive_forever(75,75)
-    while not on_black_right() and not front_bumped():   #or seconds < end: #
+    while not on_black_right() and seconds() < end:   #not front_bumped or
         pass
-    if front_bumped():   #or seconds >= end
+    if seconds() >= end:  #front_bumped or
         drive_timed(-96,-100,4)
     stop()
     drive_timed(-100, -100, 800)
+
+    if c.IS_PRIME:
+        rotate(110, 1450)
+    else:
+        rotate(110, 1550)
+    while not approach_furrow(100, 5):
+        drive_timed(-100, -100, 2000)
+        rotate(-100, 250)
+    stop()
+    while not approach_furrow(50, 5):
+        drive_timed(-100, -100, 2000)
+        rotate(-100, 250)
+    stop()
+    drive_timed(-100, -100, 1300)
+    rotate_degrees(-87, 100)
+    drive_timed(-100, -100, 100)
     # wait_for_button(True)
     # rotate(200, 1500)
     # drive_timed(-200, -200, 300)
@@ -348,7 +382,7 @@ def hay_grab():
     if c.IS_PRIME:
         drive_timed(46, 55, 4500)
     else:
-        drive_timed(46, 50, 4700)
+        drive_timed(46, 50, 4800)
     # Wait for button so the thin hay arm piece can be put in
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach
@@ -371,10 +405,7 @@ def hay_grab():
     while not bumped():
         pass
     stop()
-    if c.IS_PRIME:
-        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
-    else:
-        move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
     # if c.IS_CLONE:
         # rotate(100, 400)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_FLAT)

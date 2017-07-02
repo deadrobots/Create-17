@@ -28,24 +28,24 @@ def init():
 
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_BARN)
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_DRIVE)
-
+    ''' moved to waiting for light
     move_servo(c.SERVO_ARM, c.ARM_BACK)
     #These servo movements allow the create to fit inside the start box
     move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_START)
     move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_START)
     infinite_y()
-    display("Press the left button to run seeding code and right to run head to head code")
-    while not left_button() or right_button():
-        pass
-    if left_button():
-        c.seeding = True
-        display("seeding")
-    elif right_button():
-        c.seeding = False
-        display("head to head")
-    while left_button() or right_button():
-        pass
+    '''
+    # display("Press the left button to run seeding code and right to run head to head code")
+    # while not left_button() or right_button():
+    #     pass
+    # if left_button():
+    #     c.seeding = True
+    #     display("seeding")
+    # elif right_button():
+    #     c.seeding = False
+    #     display("head to head")
     wait_4_light()
+    shut_down_in(119)
     c.START_TIME = seconds()
 
 
@@ -159,7 +159,7 @@ def go_to_far_side():
         drive_timed(500, 495, 2300)
         drive_timed(0, 300, 1350)
     else:
-        drive_timed(500, 495, 2300)
+        drive_timed(500, 495, 2500)
         drive_timed(0, 300, 1300)
     drive_timed(200, 195, 1500) #square up
     drive_timed(-100, -100, 1250)
@@ -173,7 +173,7 @@ def go_to_far_side():
     while not on_black_right() and seconds() < end:  # or  not front_bumped()
         pass
     if seconds() >= end:  #or front_bumped()
-        drive_timed(-96, -100, 5)
+        drive_timed(-96, -100, 8)
     stop()
     drive_timed(-100, -100, 800)
 
@@ -193,8 +193,7 @@ def go_and_drop_poms():
         drive_timed(-100, -100, 2000)
         rotate(-100, 250)
     stop()
-    if c.IS_PRIME:
-        drive_timed(50,50,400)
+    drive_timed(50,50,400)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 40)
     msleep(500)
     move_servo(c.SERVO_CLAW, c.CLAW_OPEN, 250)
@@ -272,7 +271,7 @@ def go_and_dump_blue():
     else:
         rotate(-100,2000)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
-    msleep(11000)#2000
+    msleep(13000)#2000
     y()
     # wait_for_button(True)
     msleep(1000)
@@ -291,6 +290,8 @@ def go_and_dump_blue():
         while not bumped() and seconds() < end_two:
             pass
         display("Seconds: {}\t\tend_two: {}\t\tBumped: {}".format(seconds(), end_two, bumped()))
+    else:
+        drive_timed(100, 100, 1000)
     stop()
 
 
@@ -338,8 +339,12 @@ def hay_grab():
         drive_timed(-100, -100, 2000)
         rotate(-100, 250)
     stop()
-    drive_timed(-100, -100, 1400)
-    rotate_degrees(-87, 100)
+    if c.IS_PRIME:
+        drive_timed(-100, -100, 1400)
+        rotate_degrees(-87, 100)
+    else:
+        drive_timed(-100, -100,1200)
+        rotate_degrees(-86, 100)
     drive_timed(-100, -100, 100)
     hay_arm(100, .4)
     # This code is for collecting the hay

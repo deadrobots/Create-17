@@ -207,11 +207,12 @@ def calibrate(port):
 
 
 def _wait_4(port):
+    move_servo(c.SERVO_ARM, c.ARM_BACK)
+    # These servo movements allow the create to fit inside the start box
+    move_servo(c.SERVO_HAY_SPIN, c.HAY_SPIN_START)
+    move_servo(c.SERVO_HAY_ARM, c.HAY_ARM_START)
+    infinite_y()
     print("waiting for light!! ")
-    if c.seeding:
-        print("SEEDING")
-    else:
-        print("HEAD TO HEAD")
     while analog(port) > c.startLightThresh:
         pass
 

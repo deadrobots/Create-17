@@ -17,13 +17,11 @@ RIGHT_TOPHAT = 5
 THRESHOLD = 1500
 
 # Servos
-SERVO_CLAW = 0
+SERVO_CLAW = 3
 SERVO_ARM = 1
 SERVO_HAY_SPIN = 2
-SERVO_HAY_ARM = 3
-if IS_PRIME:
-    SERVO_CLAW=3
-    SERVO_HAY_ARM=0
+SERVO_HAY_ARM = 0
+
 #2 1569
 #3 170
 #1 Same for now
@@ -80,7 +78,7 @@ TURN_TIME = 0  # -20  # 0, 15, 40
 if IS_CLONE:
     TURN_TIME = 40
 
-seeding = False
+seeding = True
 
 LOGFILE = "" # Leave empty
 ROBOT_NAME = "Create-17"

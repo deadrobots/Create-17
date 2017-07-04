@@ -169,7 +169,7 @@ def go_to_far_side():
     if c.IS_PRIME:
         drive_forever(75, 85)
     else:
-        drive_forever(75, 85)
+        drive_forever(75, 90)
     while not on_black_right() and seconds() < end:  # or  not front_bumped()
         pass
     if seconds() >= end:  #or front_bumped()
@@ -271,7 +271,7 @@ def go_and_dump_blue():
     else:
         rotate(-100,2000)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
-    msleep(13000)#2000
+    msleep(15000)
     y()
     # wait_for_button(True)
     msleep(1000)
@@ -308,25 +308,25 @@ def hay_grab():
     stop()
     move_servo(c.SERVO_ARM, c.ARM_UP)
     rotate(100, 2400)
-    drive_timed(100, 100, 1000)
+    drive_timed(100, 100, 1000) #square up on pipe
+
     drive_timed(-100, -100, 1250)
-    # rotate(-100, 1450)
     if c.IS_PRIME:
         rotate_degrees(-89, 100)
     else:
-        rotate_degrees(-92,100)
+        rotate_degrees(-92, 100)
     end = seconds() + 5
     if c.IS_PRIME:
-        drive_forever(75,95)
+        drive_forever(75, 95)
     else:
-        drive_forever(75,75)
-    while not on_black_right() and seconds() < end:   #not front_bumped or
+        drive_forever(75, 95)
+    while not on_black_right() and seconds() < end: #look for black patch under cow
         pass
-    if seconds() >= end:  #front_bumped or
+    if seconds() >= end: #oops, missed the black patch
         drive_timed(-96,-100,4)
     stop()
-    drive_timed(-100, -100, 800)
 
+    drive_timed(-100, -100, 800)
     if c.IS_PRIME:
         rotate(110, 1450)
     else:
@@ -343,7 +343,7 @@ def hay_grab():
         drive_timed(-100, -100, 1400)
         rotate_degrees(-87, 100)
     else:
-        drive_timed(-100, -100,1200)
+        drive_timed(-100, -100, 1300) ###
         rotate_degrees(-86, 100)
     drive_timed(-100, -100, 100)
     hay_arm(100, .4)

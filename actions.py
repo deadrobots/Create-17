@@ -156,7 +156,7 @@ def go_to_far_side():
     display("\nFunction: go_to_far_side\n")
     display("Long Drive")
     if c.IS_PRIME:
-        drive_timed(500, 495, 2300)
+        drive_timed(500, 495, 2500)
         drive_timed(0, 300, 1350)
     else:
         drive_timed(500, 495, 2500)
@@ -165,11 +165,11 @@ def go_to_far_side():
     drive_timed(-100, -100, 1250)
     rotate_degrees(-85, 100)
 
-    end = seconds() + 7
+    end = seconds() + 6
     if c.IS_PRIME:
-        drive_forever(75, 95)
+        drive_forever(75, 85)
     else:
-        drive_forever(75, 75)
+        drive_forever(75, 85)
     while not on_black_right() and seconds() < end:  # or  not front_bumped()
         pass
     if seconds() >= end:  #or front_bumped()
@@ -267,7 +267,7 @@ def go_and_dump_blue():
     drive_timed(-100, -100, 2500)   #(-400,-400,1000)
     if c.IS_PRIME:
         #rotate(-100,2100)
-        rotate_degrees(-120, 100)
+        rotate_degrees(-125, 100)
     else:
         rotate(-100,2000)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)

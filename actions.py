@@ -159,7 +159,7 @@ def go_to_far_side():
         drive_timed(500, 495, 2500)
         drive_timed(0, 300, 1350)
     else:
-        drive_timed(500, 495, 2500)
+        drive_timed(500, 495, 3000)
         drive_timed(0, 300, 1300)
     drive_timed(200, 195, 1500) #square up
     drive_timed(-100, -100, 1250)
@@ -173,7 +173,7 @@ def go_to_far_side():
     while not on_black_right() and seconds() < end:  # or  not front_bumped()
         pass
     if seconds() >= end:  #or front_bumped()
-        drive_timed(-96, -100, 8)
+        drive_timed(-96, -100, 500)
     stop()
     drive_timed(-100, -100, 800)
 
@@ -291,7 +291,16 @@ def go_and_dump_blue():
             pass
         display("Seconds: {}\t\tend_two: {}\t\tBumped: {}".format(seconds(), end_two, bumped()))
     else:
-        drive_timed(100, 100, 1000)
+        for _ in range(0, 2):
+            stop()
+            msleep(2000)
+            drive_timed(100, 100, 1200)
+            end = seconds() + 6
+            drive_forever(-200, -200)
+            while not bumped() and seconds() < end:
+                pass
+        stop()
+        msleep(2000)
     stop()
 
 

@@ -147,7 +147,7 @@ def get_out_of_startbox():
     drive_timed(200, 200, 650)
     if c.IS_PRIME:
         drive_timed(100, 100, 200)
-        rotate_degrees(-80, 100)
+        rotate_degrees(-85, 100)
     else:
         drive_timed(100, 100, 200)
         rotate_degrees(-76, 100)
@@ -157,9 +157,9 @@ def go_to_far_side():
     display("Long Drive")
     if c.IS_PRIME:
         drive_timed(500, 495, 2500)
-        drive_timed(0, 300, 1350)
+        drive_timed(0, 280, 1400)
     else:
-        drive_timed(500, 495, 3000)
+        drive_timed(500, 495, 2500)#3000
         drive_timed(0, 300, 1300)
     drive_timed(200, 195, 1500) #square up
     drive_timed(-100, -100, 1250)
@@ -269,7 +269,7 @@ def go_and_dump_blue():
         #rotate(-100,2100)
         rotate_degrees(-125, 100)
     else:
-        rotate(-100,2000)
+        rotate(-100,2100)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     msleep(15000)
     y()
@@ -278,6 +278,7 @@ def go_and_dump_blue():
 
     end = seconds() + 6
     drive_forever(-200, -200)
+
     while not bumped() and seconds() < end:
         pass
     if seconds() > end:
@@ -368,7 +369,7 @@ def hay_grab():
     if c.IS_PRIME:
         drive_timed(46, 55, 4600)
     else:
-        drive_timed(46, 50, 4800)
+        drive_timed(48, 50, 4800)
     # Wait for button so the thin hay arm piece can be put in
     # This code is to grab the hay
     # Hasn't been tested so possibly incorrect approach

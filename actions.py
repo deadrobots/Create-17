@@ -152,20 +152,21 @@ def get_out_of_startbox():
         drive_timed(100, 100, 200)
         rotate_degrees(-76, 100)
 
+
 def go_to_far_side():
     display("\nFunction: go_to_far_side\n")
     display("Long Drive")
     if c.IS_PRIME:
-        drive_timed(500, 495, 2500)
+        drive_timed(500, 495, 2800)
         drive_timed(0, 280, 1400)
     else:
-        drive_timed(500, 495, 2500)#3000
+        drive_timed(500, 495, 2600)#3000
         drive_timed(0, 300, 1300)
     drive_timed(200, 195, 1500) #square up
     drive_timed(-100, -100, 1250)
     rotate_degrees(-85, 100)
 
-    end = seconds() + 6
+    end = seconds() + 7
     if c.IS_PRIME:
         drive_forever(75, 85)
     else:
@@ -267,11 +268,13 @@ def go_and_dump_blue():
     drive_timed(-100, -100, 2500)   #(-400,-400,1000)
     if c.IS_PRIME:
         #rotate(-100,2100)
-        rotate_degrees(-125, 100)
+        rotate_degrees(-123, 100)       #rotation to water tank
     else:
         rotate(-100,2100)
     move_servo(c.SERVO_ARM, c.ARM_DROP, 50)
     msleep(15000)
+    if c.IS_CLONE:
+        drive_timed(100, 100, 500)
     y()
     # wait_for_button(True)
     msleep(1000)
@@ -292,7 +295,7 @@ def go_and_dump_blue():
             pass
         display("Seconds: {}\t\tend_two: {}\t\tBumped: {}".format(seconds(), end_two, bumped()))
     else:
-        for _ in range(0, 2):
+        for _ in range(0, 1):
             stop()
             msleep(2000)
             drive_timed(100, 100, 1200)
@@ -351,7 +354,7 @@ def hay_grab():
     stop()
     if c.IS_PRIME:
         drive_timed(-100, -100, 1400)
-        rotate_degrees(-87, 100)
+        rotate_degrees(-83, 100)
     else:
         drive_timed(-100, -100, 1300) ###
         rotate_degrees(-86, 100)
@@ -367,7 +370,7 @@ def hay_grab():
     # The hay motor needs to be locked in place for this
     # Positioning may also need to be changed after hardware changes the arm
     if c.IS_PRIME:
-        drive_timed(46, 55, 4600)
+        drive_timed(46, 60, 4600)
     else:
         drive_timed(48, 50, 4800)
     # Wait for button so the thin hay arm piece can be put in
